@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-wrapper {
+  background-color: #f4f4f4;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.custom-navbar {
+  border-bottom: 3px solid #dc3545;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.custom-alert {
+  border-left: 6px solid #842029;
+  border-radius: 8px;
+  background-color: #f8d7da;
+}
+
+.custom-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-bottom: 4px solid transparent;
+}
+
+.custom-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+  border-bottom: 4px solid #dc3545; 
+}
+
+.custom-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.home-page {
+  margin-top: -3rem; 
+}
+
+.hero-banner {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=1920');
+  background-size: cover;
+  background-position: center;
+  min-height: 550px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.custom-card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
