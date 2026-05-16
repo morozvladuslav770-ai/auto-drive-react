@@ -7,12 +7,6 @@
   border-bottom: 3px solid #dc3545;
 }
 
-.custom-alert {
-  border-left: 6px solid #842029;
-  border-radius: 8px;
-  background-color: #f8d7da;
-}
-
 .custom-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: none;

@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 
 import { useAuth } from './hooks/useAuth';
 import { useCars } from './hooks/useCars';
+import { useCart } from './hooks/useCart';
 
 import Menu from "./components/menu/Menu";
 import HomePage from "./components/HomePage";
@@ -11,6 +12,8 @@ import CatalogPage from "./components/CatalogPage";
 import CarModal from "./components/CarModal";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import CartPage from './components/CartPage';
+import AdminPage from './components/AdminPage';
 import './App.css';
 
 function App() {
@@ -19,6 +22,7 @@ function App() {
 
   const { user, role, loadingAuth } = useAuth();
   const { carsData, loadingCars } = useCars();
+  const { cart, addToCart, removeFromCart, createOrder } = useCart(user);
 
   const handleClose = () => setShow(false);
   const handleShow = (id) => {
@@ -26,9 +30,14 @@ function App() {
     setShow(true);
   };
 
+  const handleAddToCart = (car) => {
+    addToCart(car);
+    handleClose();
+  };
+
   if (loadingAuth || loadingCars) {
     return (
-      <div className="text-center mt-5">
+      <div className="text-center mt-5 text-white">
         <h3>Завантаження AutoDrive...</h3>
       </div>
     );
@@ -36,25 +45,37 @@ function App() {
 
   return (
     <div className="app-wrapper">
-      <Menu user={user} role={role} />
+      <Menu user={user} role={role} cartCount={cart.length} />
       
       <Container className="mt-5">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route 
             path="/catalog" 
-            element={<CatalogPage carsData={carsData} onDetailClick={handleShow} />} 
+            element={<CatalogPage carsData={carsData} onDetailClick={handleShow} />}
+          />
+          <Route 
+            path="/cart" 
+            element={
+              <CartPage 
+                cart={cart} 
+                user={user} 
+                removeFromCart={removeFromCart} 
+                createOrder={createOrder} 
+              />
+            } 
           />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<AdminPage role={role} />} />
         </Routes>
 
         <CarModal 
           show={show} 
           onHide={handleClose} 
-          car={selectedCar} 
+          car={selectedCar}
           role={role}
-          onAction={(name) => alert(`Запит на ${name} прийнято!`)} 
+          onAction={handleAddToCart}
         /> 
       </Container>
     </div>
