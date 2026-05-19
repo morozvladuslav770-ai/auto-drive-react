@@ -14,6 +14,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import CartPage from './components/CartPage';
 import AdminPage from './components/AdminPage';
+import TestDrivePage from './components/TestDrivePage';
 import './App.css';
 
 function App() {
@@ -65,6 +66,8 @@ function App() {
               />
             } 
           />
+          <Route path="/drive" element={<TestDrivePage cars={carsData} user={user} role={role} />} 
+/>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminPage role={role} />} />

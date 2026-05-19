@@ -21,6 +21,7 @@ const Menu = ({ user, role, cartCount }) => {
           <Nav className="me-auto">
             <Nav.Link as={NavLink} to="/" end>Головна</Nav.Link>  
             <Nav.Link as={NavLink} to="/catalog">Каталог авто</Nav.Link> 
+            <Nav.Link as={NavLink} to="/drive">Тест-Драйв</Nav.Link> 
             
             <Nav.Link as={NavLink} to="/cart" className="d-flex align-items-center">
               Корзина
