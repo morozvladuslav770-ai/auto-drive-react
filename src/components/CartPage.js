@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Card, Button, Row, Col, Badge, ListGroup, Form, Tabs, Tab, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useUserOrders } from '../hooks/useUserOrders'; // Імпортуємо новий хук
+import { useUserOrders } from '../hooks/useUserOrders';
 
 const CartPage = ({ cart, user, removeFromCart, createOrder }) => {
   const navigate = useNavigate();
-  const { userOrders, loadingUserOrders } = useUserOrders(user); // Завантажуємо історію
+  const { userOrders, loadingUserOrders } = useUserOrders(user);
 
-  // Стан для форми замовлення
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -36,14 +35,12 @@ const CartPage = ({ cart, user, removeFromCart, createOrder }) => {
   };
 
   const handleFinish = async (e) => {
-    e.preventDefault(); // Запобігаємо перезавантаженню сторінки форми
+    e.preventDefault(); 
     if (cart.length === 0) return;
 
-    // Передаємо дані користувача та дані форми в хук
     const success = await createOrder(user, formData);
     if (success) {
       alert("Дякуємо! Ваша заявка на купівлю прийнята. Менеджер зв'яжеться з вами найближчим часом.");
-      // Скидаємо форму
       setFormData({ name: '', phone: '', city: '', comment: '' });
       navigate('/');
     }

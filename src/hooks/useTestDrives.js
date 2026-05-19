@@ -1,24 +1,13 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase'; // Імпорт твоєї бази даних із проекту
-import { 
-  collection, 
-  onSnapshot, 
-  addDoc, 
-  doc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
-  where, 
-  orderBy, 
-  serverTimestamp 
-} from "firebase/firestore";
+import { db } from '../firebase';
+import { collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, query, where, orderBy, serverTimestamp } 
+from "firebase/firestore";
 
 export const useTestDrives = (user, role) => {
   const [drives, setDrives] = useState([]);
   const [loadingDrives, setLoadingDrives] = useState(true);
 
   useEffect(() => {
-    // Якщо користувач не увійшов — нічого не завантажуємо
     if (!user || role === 'guest') {
       setDrives([]);
       setLoadingDrives(false);
@@ -27,10 +16,8 @@ export const useTestDrives = (user, role) => {
 
     let q;
     if (role === 'admin') {
-      // 1. АДМІНІСТРАТОР: Запит у Firestore на ВСІ документи з колекції "test_drives"
       q = query(collection(db, "test_drives"), orderBy("createdAt", "desc"));
     } else {
-      // 2. КОРИСТУВАЧ: Запит у Firestore ТІЛЬКИ на його власні записи (де userId збігається)
       q = query(
         collection(db, "test_drives"),
         where("userId", "==", user.uid),
@@ -38,7 +25,6 @@ export const useTestDrives = (user, role) => {
       );
     }
 
-    // Слухаємо оновлення бази даних у реальному часі
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const data = querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -54,11 +40,10 @@ export const useTestDrives = (user, role) => {
     return () => unsubscribe();
   }, [user, role]);
 
-  // ФУНКЦІЯ ДОДАВАННЯ ЗАПИСУ В КОЛЕКЦІЮ FIREBASE
+
   const addDrive = async (driveData) => {
     if (!user) return false;
     try {
-      // Функція addDoc створює нову колекцію "test_drives" (якщо її немає) та додає туди документ
       await addDoc(collection(db, "test_drives"), {
         userId: user.uid,          // ID авторизованого юзера
         userEmail: user.email,      // Email юзера для адміна
@@ -77,11 +62,10 @@ export const useTestDrives = (user, role) => {
     }
   };
 
-  // ФУНКЦІЯ ОНОВЛЕННЯ СТАТУСУ (Для тумблера адміна)
+
   const toggleDriveStatus = async (id, currentStatus) => {
     try {
       const docRef = doc(db, "test_drives", id);
-      // Оновлюємо поле completed на протилежне в базі даних
       await updateDoc(docRef, { completed: !currentStatus });
       return true;
     } catch (error) {
@@ -90,7 +74,6 @@ export const useTestDrives = (user, role) => {
     }
   };
 
-  // ФУНКЦІЯ ВИДАЛЕННЯ ЗАПИСУ З БАЗИ ДАНИХ
   const deleteDrive = async (id) => {
     try {
       await deleteDoc(doc(db, "test_drives", id));

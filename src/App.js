@@ -8,13 +8,13 @@ import { useCart } from './hooks/useCart';
 
 import Menu from "./components/menu/Menu";
 import HomePage from "./components/HomePage";
-import CatalogPage from "./components/CatalogPage";
-import CarModal from "./components/CarModal";
+import CatalogPage from "./components/catalog/CatalogPage";
+import CarModal from "./components/catalog/CarModal";
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import CartPage from './components/CartPage';
 import AdminPage from './components/AdminPage';
-import TestDrivePage from './components/TestDrivePage';
+import TestDrivePage from './components/tdrive/TestDrivePage';
 import './App.css';
 
 function App() {

@@ -13,7 +13,6 @@ export const useUserOrders = (user) => {
       return;
     }
 
-    // Запит: витягуємо замовлення лише поточного користувача, сортуємо від нових до старих
     const q = query(
       collection(db, "orders"),
       where("userId", "==", user.uid),

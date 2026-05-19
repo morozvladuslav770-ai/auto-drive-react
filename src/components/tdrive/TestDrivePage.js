@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, ListGroup, ButtonGroup, Button, Row, Col, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useTestDrives } from '../hooks/useTestDrives';
+import { useTestDrives } from '../../hooks/useTestDrives';
 import TestDriveItem from './TestDriveItem';
 import TestDriveForm from './TestDriveForm';
 
@@ -12,7 +12,7 @@ const TestDrivePage = ({ cars, user, role }) => {
   // Хук підтягує дані з Firestore (для адміна — всі, для юзера — власні)
   const { drives, loadingDrives, addDrive, toggleDriveStatus, deleteDrive } = useTestDrives(user, role);
 
-  // 1. Перевірка на гостя (якщо не авторизований)
+  // Перевірка на гостя (якщо не авторизований)
   if (!user || role === 'guest') {
     return (
       <Container className="py-5 text-center">
